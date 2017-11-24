@@ -18,7 +18,7 @@ class BattleShipSpec extends WordSpecLike {
 
   val validxPos: Set[BattlePos] = (0 until 5).map(x => BattlePos(x, 0)).toSet
   val validyPos: Set[BattlePos] = (0 until 5).map(y => BattlePos(0, y)).toSet
-  val illegalPos: Set[BattlePos] = Set(BattlePos(3, 1)) ++ validxPos.tail
+  val illegalPos: Set[BattlePos] = Set(BattlePos(7, 4)) ++ validxPos.tail
 
   // TODO WP5.1 make all tests green
   "Battleship" should {
@@ -54,13 +54,42 @@ class BattleShipSpec extends WordSpecLike {
       assert(BattleShip("def", validyPos) != null)
     }
 
+    "test shows how intercept works" in {
+      intercept[IllegalArgumentException] {
+        throw new IllegalArgumentException("foo")
+      }
+    }
+
+    "discover if at least one x position is wrong" in {
+      intercept[IllegalArgumentException] {
+        val b = BattleShip("a b c", Set(
+          BattlePos(1, 0),
+          BattlePos(0, 1),
+          BattlePos(0, 2),
+          BattlePos(0, 3),
+          BattlePos(0, 4),
+        ))
+      }
+    }
+    "discover if at least one y position is wrong" in {
+      intercept[IllegalArgumentException] {
+        val b = BattleShip("a b c", Set(BattlePos(0, 1),
+          BattlePos(1, 0),
+          BattlePos(2, 0),
+          BattlePos(3, 0),
+          BattlePos(4, 0),
+        ))
+      }
+    }
     // illegalPos defines a ship which is not possible
     "pos is connected" in {
       intercept[IllegalArgumentException] {
-
-        illegalPos foreach println
-
-        val b = BattleShip("a b c", illegalPos)
+        val b = BattleShip("a b c", Set(BattlePos(0, 0),
+          BattlePos(1, 0),
+          BattlePos(2, 0),
+          BattlePos(3, 0),
+          BattlePos(5, 0),
+        ))
       }
     }
 

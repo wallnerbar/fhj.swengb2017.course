@@ -44,4 +44,15 @@ case class BattleShip(name: String, positions: Set[BattlePos]) extends Vessel {
 
   // mission: we have to proof that all x positions or all y positions are the same and that all cells are connected.
 
+  private val allXCoordinatesAreTheSame = positions.map(_.x).size == 1
+
+  private val allYCoordinatesAreTheSame = positions.map(_.y).size == 1
+
+  val allCoordinatesAreTheSameForXOrY: Boolean = allXCoordinatesAreTheSame || allYCoordinatesAreTheSame
+
+  // either all x coordinates are the same or all y coordinates are the same
+  require(allCoordinatesAreTheSameForXOrY)
+
+  // additional requirement is needed to check for connectedness
+  require(true)
 }
