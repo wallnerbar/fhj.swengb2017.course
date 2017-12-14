@@ -7,13 +7,26 @@ import scala.collection.JavaConverters._
 /**
   * Encodes conversions between business models and protocol encodings
   */
+
+
 object MazeProtocol {
 
   def convert(pos: MazeProtobuf.Pos): Pos = ???
 
-  def convert(end: Pos): MazeProtobuf.Pos = MazeProtobuf.Pos.newBuilder().build()
+  def convert(pos: Pos): MazeProtobuf.Pos = {
+    val builder = MazeProtobuf.Pos.newBuilder()
+    builder.setX(pos.x)
+    builder.setY(pos.y)
+    builder.build()
+  }
 
-  def convert(cellRect: Rect): MazeProtobuf.Rect = MazeProtobuf.Rect.newBuilder().build()
+  def convert(cellRect: Rect): MazeProtobuf.Rect = {
+
+  val builder = MazeProtobuf.Rect.newBuilder()
+  builder.setWidth(cellRect.width)
+  builder.setHeight(cellRect.height)
+  builder.build()
+}
 
   def convert(cell: Cell): MazeProtobuf.Cell = MazeProtobuf.Cell
     .newBuilder().build
